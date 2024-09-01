@@ -5,10 +5,10 @@ export default function SignIn() {
     <form
       action={async () => {
         "use server";
-        await signIn();
+        await signIn("google", { redirectTo: "/" });
       }}
     >
-      <button type="submit">Sign in</button>
+      <button type="submit">Signin with Google</button>
     </form>
   );
 }
