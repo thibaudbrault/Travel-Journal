@@ -1,11 +1,8 @@
-import { db } from "@/db";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { env } from "@/lib/env";
 import { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
-import { env } from "@/lib/env";
 
 export const authConfig: NextAuthConfig = {
-  adapter: DrizzleAdapter(db),
   providers: [
     Google({
       clientId: env.AUTH_GOOGLE_ID,
@@ -24,10 +21,7 @@ export const authConfig: NextAuthConfig = {
       return !!auth;
     },
   },
-  session: {
-    strategy: "jwt",
-  },
   pages: {
-    signIn: "/login",
+    signIn: "/",
   },
 } satisfies NextAuthConfig;
