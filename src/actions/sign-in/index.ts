@@ -1,7 +1,7 @@
-"use server";
+'use server';
 
-import { signIn } from "@/auth";
+import { signIn } from '@/auth';
 
 export const signInAction = async () => {
-  await signIn("google", { redirectTo: "/" });
+  await signIn('google', { redirectTo: '/' });
 };

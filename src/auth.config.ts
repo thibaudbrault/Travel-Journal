@@ -1,6 +1,6 @@
-import { env } from "@/lib/env";
-import { NextAuthConfig } from "next-auth";
-import Google from "next-auth/providers/google";
+import { env } from '@/lib/env';
+import { NextAuthConfig } from 'next-auth';
+import Google from 'next-auth/providers/google';
 
 export const authConfig: NextAuthConfig = {
   providers: [
@@ -9,9 +9,9 @@ export const authConfig: NextAuthConfig = {
       clientSecret: env.AUTH_GOOGLE_SECRET,
       authorization: {
         params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
         },
       },
     }),
@@ -22,6 +22,6 @@ export const authConfig: NextAuthConfig = {
     },
   },
   pages: {
-    signIn: "/",
+    signIn: '/',
   },
 } satisfies NextAuthConfig;

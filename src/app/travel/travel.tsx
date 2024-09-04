@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,20 +8,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
-import { options } from "@/lib/constants";
-import { dateAtom, diffDaysAtom } from "@/lib/store";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtomValue } from "jotai";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+} from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
+import { options } from '@/lib/constants';
+import { dateAtom, diffDaysAtom } from '@/lib/store';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAtomValue } from 'jotai';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 type Props = {};
 
 const formSchema = z.object({
   morning: z.string().min(2, {
-    message: "You must add a descritption of your morning.",
+    message: 'You must add a descritption of your morning.',
   }),
 });
 
@@ -33,7 +33,7 @@ export default function Travel({}: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      morning: "",
+      morning: '',
     },
   });
 
@@ -43,14 +43,14 @@ export default function Travel({}: Props) {
   }
 
   return (
-    <main className="flex grow flex-col items-center justify-center p-12 gap-8">
+    <main className="flex grow flex-col items-center justify-center gap-8 p-12">
       <p>
-        From{" "}
-        <span className="text-sky-400 capitalize">
+        From{' '}
+        <span className="capitalize text-sky-400">
           {date?.from?.toLocaleDateString(undefined, options)}
-        </span>{" "}
-        to{" "}
-        <span className="text-sky-400 capitalize">
+        </span>{' '}
+        to{' '}
+        <span className="capitalize text-sky-400">
           {date?.to?.toLocaleDateString(undefined, options)}
         </span>
       </p>
@@ -62,8 +62,8 @@ export default function Travel({}: Props) {
           return (
             <section key={index} className="w-full">
               <h2>
-                Day {index + 1}:{" "}
-                <span className="capitalize font-semibold">
+                Day {index + 1}:{' '}
+                <span className="font-semibold capitalize">
                   {curDate.toLocaleDateString(undefined, options)}
                 </span>
               </h2>
