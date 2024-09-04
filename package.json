@@ -6,13 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down -v",
     "studio": "drizzle-kit studio",
     "generate": "drizzle-kit generate",
     "push": "drizzle-kit push",
-    "migrate": "drizzle-kit migrate"
+    "migrate": "drizzle-kit migrate",
+    "lint": "eslint \"src/**/*.+(ts|js|tsx)\"",
+    "lint:fix": "eslint \"src/**/*.+(ts|js|tsx)\" --fix",
+    "prettier": "prettier \"src/**/*.+(ts|js|tsx)\"",
+    "prettier:check": "prettier \"src/**/*.+(ts|js|tsx)\" --check",
+    "prettier:write": "prettier \"src/**/*.+(ts|js|tsx)\" --write"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.4.2",
@@ -46,7 +50,10 @@
     "drizzle-kit": "^0.24.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-tailwindcss": "^3.17.4",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
