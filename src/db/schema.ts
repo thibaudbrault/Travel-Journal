@@ -1,3 +1,4 @@
+import { relations } from 'drizzle-orm';
 import {
   boolean,
   integer,
@@ -8,6 +9,24 @@ import {
 } from 'drizzle-orm/pg-core';
 import type { AdapterAccountType } from 'next-auth/adapters';
 
+export const travels = pgTable('travel', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text('name'),
+  location: text('location'),
+  dateFrom: timestamp('from'),
+  dateTo: timestamp('to'),
+  userId: text('user_id').references(() => users.id),
+});
+
+export const travelsRelations = relations(travels, ({ one }) => ({
+  user: one(users, {
+    fields: [travels.userId],
+    references: [users.id],
+  }),
+}));
+
 export const users = pgTable('user', {
   id: text('id')
     .primaryKey()
@@ -17,6 +36,13 @@ export const users = pgTable('user', {
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
   image: text('image'),
 });
+
+export const usersRelations = relations(users, ({ one }) => ({
+  travel: one(travels, {
+    fields: [users.id],
+    references: [travels.userId],
+  }),
+}));
 
 export const accounts = pgTable(
   'account',
