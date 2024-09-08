@@ -7,6 +7,7 @@ import { signOutAction } from '@/actions/sign-out';
 
 export default async function Nav() {
   const session = await auth();
+
   return (
     <nav className="flex items-center justify-between px-8 py-2">
       <div className="flex gap-4">
@@ -23,11 +24,13 @@ export default async function Nav() {
       </div>
       {session?.user ? (
         <form action={signOutAction}>
-          <Button variant="ghost" type="submit" asChild>
-            <Link href="/" className="flex items-center gap-1 font-semibold">
-              <LogOut />
-              Sign Out
-            </Link>
+          <Button
+            variant="ghost"
+            type="submit"
+            className="flex items-center gap-1 font-semibold"
+          >
+            <LogOut />
+            Sign Out
           </Button>
         </form>
       ) : (
