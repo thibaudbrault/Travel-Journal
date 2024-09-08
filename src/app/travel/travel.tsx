@@ -1,6 +1,6 @@
 'use client';
 
-import { createTravelSchema } from '@/actions/create-travel/schema';
+import { upsertDaySchema } from '@/actions/upsert-day/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -17,23 +17,20 @@ import { options } from '@/lib/constants';
 import { dateAtom, diffDaysAtom } from '@/lib/store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAtomValue } from 'jotai';
-import { redirect } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 type Props = {};
 
-type Schema = z.infer<typeof createTravelSchema>;
+type Schema = z.infer<typeof upsertDaySchema>;
 
 export default function Travel({}: Props) {
   const date = useAtomValue(dateAtom);
   const diffDays = useAtomValue(diffDaysAtom);
   const startDate = new Date(date?.from);
 
-  if (!date?.from) redirect('/new');
-
   const form = useForm<Schema>({
-    resolver: zodResolver(createTravelSchema),
+    resolver: zodResolver(upsertDaySchema),
     defaultValues: {
       breakfast: '',
       morning: '',
