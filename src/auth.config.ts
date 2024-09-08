@@ -20,6 +20,17 @@ export const authConfig: NextAuthConfig = {
     authorized: async ({ auth }) => {
       return !!auth;
     },
+    jwt: async ({ token, account, user }) => {
+      if (account) {
+        token.accessToken = account.access_token;
+        token.id = user.id;
+      }
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user.id = token.id as string;
+      return session;
+    },
   },
   pages: {
     signIn: '/',
