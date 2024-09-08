@@ -105,8 +105,11 @@ export const authenticators = pgTable(
     transports: text('transports'),
   },
   (authenticator) => ({
-    compositePK: primaryKey({
-      columns: [authenticator.userId, authenticator.credentialID],
+    pk: primaryKey({
+      name: 'authenticator_userId_credentialID_pk',
+      columns: [authenticator.credentialID, authenticator.userId],
     }),
   }),
 );
+
+export type User = typeof users.$inferSelect;
