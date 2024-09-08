@@ -1,13 +1,14 @@
 import { z } from 'zod';
 
 export const createTravelSchema = z.object({
-  breakfast: z.string().optional(),
-  morning: z.string().min(2, {
-    message: 'You must add a descritption of your morning.',
-  }),
-  lunch: z.string().optional(),
-  afternoon: z.string().min(2, {
-    message: 'You must add a descritption of your afternoon.',
-  }),
-  diner: z.string().optional(),
+  name: z.string().min(1, { message: 'Enter a name for this travel' }),
+  location: z.string().min(1, { message: 'Enter a location for this travel' }),
+  date: z.object(
+    {
+      from: z.date(),
+      to: z.date(),
+    },
+    { message: 'Select a start and end date' },
+  ),
+  userId: z.string().cuid2(),
 });
