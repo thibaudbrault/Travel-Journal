@@ -2,6 +2,7 @@ import { createSafeActionClient } from 'next-safe-action';
 import { z } from 'zod';
 
 import { auth } from '@/auth';
+import { getUserId } from '@/actions/get-user';
 
 export class ActionError extends Error {}
 
@@ -25,13 +26,13 @@ export const authActionClient = actionClient.use(async ({ next }) => {
   if (!session) {
     throw new Error('Not signed in');
   }
-  //   const userId = await getUserId(session);
-  //   if (!userId) {
-  //     throw new Error('User does not exist');
-  //   }
+  const userId = await getUserId(session);
+  if (!userId) {
+    throw new Error('User does not exist');
+  }
   return next({
-    // ctx: {
-    //   userId,
-    // },
+    ctx: {
+      userId,
+    },
   });
 });
