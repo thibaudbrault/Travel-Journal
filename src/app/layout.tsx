@@ -9,8 +9,9 @@ import Nav from '@/components/modules/nav';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Travel Journal',
-  description: 'Keep a note of your travel day-by-day',
+  title: 'TravelVault',
+  description:
+    'TravelVault - Save your trips and daily adventures. Document every moment, relive your travel memories, and share your journey with ease.',
 };
 
 export default function RootLayout({
