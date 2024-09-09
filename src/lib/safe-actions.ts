@@ -1,8 +1,8 @@
 import { createSafeActionClient } from 'next-safe-action';
 import { z } from 'zod';
 
-import { auth } from '@/auth';
 import { getUserId } from '@/actions/get-user';
+import { auth } from '@/auth';
 
 export class ActionError extends Error {}
 

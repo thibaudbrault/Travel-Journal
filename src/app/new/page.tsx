@@ -1,8 +1,10 @@
-import { getUserId } from '@/actions/get-user';
-import New from './new';
-import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
+
+import { getUserId } from '@/actions/get-user';
+import { auth } from '@/auth';
 import { Routes } from '@/lib/constants';
+
+import New from './new';
 
 export default async function Page() {
   const session = await auth();

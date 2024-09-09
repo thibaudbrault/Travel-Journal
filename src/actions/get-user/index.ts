@@ -2,10 +2,12 @@
 
 import { cache } from 'react';
 
+import { eq } from 'drizzle-orm';
+
 import { auth } from '@/auth';
 import { db } from '@/db';
 import { User, users } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+
 import type { Session } from 'next-auth';
 
 export const getUser = cache(async (): Promise<User | null> => {

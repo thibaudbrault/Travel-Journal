@@ -1,17 +1,17 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Routes } from '@/lib/constants';
-import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function Error({
-  error,
-  reset,
-}: {
+import { redirect } from 'next/navigation';
+
+import { Button } from '@/components/ui/button';
+import { Routes } from '@/lib/constants';
+
+type Props = {
   error: Error & { digest?: string };
-  reset: () => void;
-}) {
+};
+
+export default function Error({ error }: Props) {
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -21,7 +21,7 @@ export default function Error({
       <h2 className="text-5xl font-bold">Something went wrong!</h2>
       <Button
         variant="destructive"
-        className="font-semibold text-xl"
+        className="text-xl font-semibold"
         onClick={redirect(Routes.HOME)}
       >
         Go Home

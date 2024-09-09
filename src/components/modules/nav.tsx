@@ -1,9 +1,11 @@
 import { List, LogIn, LogOut, Plus } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '../ui/button';
-import { auth } from '@/auth';
+
 import { signInAction } from '@/actions/sign-in';
 import { signOutAction } from '@/actions/sign-out';
+import { auth } from '@/auth';
+
+import { Button } from '../ui/button';
 
 export default async function Nav() {
   const session = await auth();

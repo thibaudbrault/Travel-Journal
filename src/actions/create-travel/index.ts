@@ -2,11 +2,11 @@
 
 import { redirect } from 'next/navigation';
 
+import { Routes } from '@/lib/constants';
 import { authActionClient } from '@/lib/safe-actions';
 
-import { Routes } from '@/lib/constants';
-import 'server-only';
 import { createTravelSchema } from './schema';
+
 import { db } from '@/db';
 import { travels } from '@/db/schema';
 

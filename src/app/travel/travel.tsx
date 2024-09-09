@@ -1,5 +1,10 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAtomValue } from 'jotai';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
 import { upsertDaySchema } from '@/actions/upsert-day/schema';
 import { Button } from '@/components/ui/button';
 import {
@@ -15,16 +20,10 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { options } from '@/lib/constants';
 import { dateAtom, diffDaysAtom } from '@/lib/store';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useAtomValue } from 'jotai';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-type Props = {};
 
 type Schema = z.infer<typeof upsertDaySchema>;
 
-export default function Travel({}: Props) {
+export default function Travel() {
   const date = useAtomValue(dateAtom);
   const diffDays = useAtomValue(diffDaysAtom);
   const startDate = new Date(date?.from);
@@ -83,7 +82,7 @@ export default function Travel({}: Props) {
                           <FormItem>
                             <FormLabel>Breakfast</FormLabel>
                             <FormControl>
-                              <div className="flex gap-2 items-center">
+                              <div className="flex items-center gap-2">
                                 <Input
                                   placeholder="Your breakfast"
                                   {...field}
@@ -118,7 +117,7 @@ export default function Travel({}: Props) {
                           <FormItem>
                             <FormLabel>Lunch</FormLabel>
                             <FormControl>
-                              <div className="flex gap-2 items-center">
+                              <div className="flex items-center gap-2">
                                 <Input
                                   placeholder="Your breakfast"
                                   {...field}
@@ -153,7 +152,7 @@ export default function Travel({}: Props) {
                           <FormItem>
                             <FormLabel>Diner</FormLabel>
                             <FormControl>
-                              <div className="flex gap-2 items-center">
+                              <div className="flex items-center gap-2">
                                 <Input placeholder="Your diner" {...field} />
                                 <Button variant="ghost">None</Button>
                               </div>

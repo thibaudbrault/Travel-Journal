@@ -7,6 +7,7 @@ import {
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
+
 import type { AdapterAccountType } from 'next-auth/adapters';
 
 export const travels = pgTable('travel', {
