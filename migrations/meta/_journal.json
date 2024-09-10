@@ -22,6 +22,13 @@
       "when": 1725787991007,
       "tag": "0002_lowly_maximus",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1725983920942,
+      "tag": "0003_wealthy_darkstar",
+      "breakpoints": true
     }
   ]
 }

@@ -15,7 +15,7 @@ export const travels = pgTable('travel', {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   name: text('name'),
-  location: text('location'),
+  country: text('country'),
   dateFrom: timestamp('from'),
   dateTo: timestamp('to'),
   userId: text('user_id').references(() => users.id),
