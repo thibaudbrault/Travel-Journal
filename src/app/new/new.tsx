@@ -1,16 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { DevTool } from '@hookform/devtools';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { addMonths } from 'date-fns';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { createTravel } from '@/actions/create-travel';
 import { createTravelSchema } from '@/actions/create-travel/schema';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
 import {
   Form,
   FormControl,
@@ -21,7 +29,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { DAY } from '@/lib/constants';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { countries, DAY } from '@/lib/constants';
+import { cn } from '@/lib/utils';
+import { Check, ChevronsUpDown } from 'lucide-react';
 
 type Props = {
   userId: string;
@@ -31,30 +46,29 @@ type Schema = z.infer<typeof createTravelSchema>;
 
 export default function New({ userId }: Props) {
   const today = new Date();
-  const nextMonth = addMonths(today, 1);
-  const [month, setMonth] = useState<Date>(nextMonth);
+  const [month, setMonth] = useState<Date>(today);
 
   const form = useForm<Schema>({
     resolver: zodResolver(createTravelSchema),
     defaultValues: {
       name: '',
-      location: '',
+      country: '',
     },
     mode: 'onBlur',
   });
 
-  const onSubmit = (values: Schema) => {
-    console.log(values);
+  const onSubmit: SubmitHandler<Schema> = async (values) => {
+    await createTravel(values);
   };
-
-  useEffect(() => {
-    console.log('valid: ', form.formState.isValid);
-  }, [form.formState.isDirty, form.formState.isValid]);
 
   return (
     <main className="flex grow flex-col items-center justify-center gap-8 p-24">
+      <h2 className="text-4xl font-semibold">Create your travel</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-fit max-w-screen-lg space-y-4"
+        >
           <fieldset className="space-y-2">
             <FormField
               control={form.control}
@@ -71,13 +85,60 @@ export default function New({ userId }: Props) {
             />
             <FormField
               control={form.control}
-              name="location"
+              name="country"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Location</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Your travel location" {...field} />
-                  </FormControl>
+                  <FormLabel>Country</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            'w-full justify-between',
+                            !field.value && 'text-muted-foreground',
+                          )}
+                        >
+                          {field.value
+                            ? countries.find(
+                                (country) => country.value === field.value,
+                              )?.label
+                            : 'Select a country'}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0">
+                      <Command>
+                        <CommandInput placeholder="Search countries..." />
+                        <CommandList>
+                          <CommandEmpty>No country found</CommandEmpty>
+                          <CommandGroup>
+                            {countries.map((country) => (
+                              <CommandItem
+                                value={country.label}
+                                key={country.value}
+                                onSelect={() => {
+                                  form.setValue('country', country.value);
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    'mr-2 h-4 w-4',
+                                    country.value === field.value
+                                      ? 'opacity-100'
+                                      : 'opacity-0',
+                                  )}
+                                />
+                                {country.flag} {country.label}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}
