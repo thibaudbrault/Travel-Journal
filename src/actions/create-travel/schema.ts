@@ -10,5 +10,5 @@ export const createTravelSchema = z.object({
     },
     { message: 'Select a start and end date' },
   ),
-  userId: z.string().cuid2(),
+  userId: z.string().uuid(),
 });
