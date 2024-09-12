@@ -1,17 +1,21 @@
 import { redirect } from 'next/navigation';
 
-import { getUserId } from '@/actions/get-user';
-import { auth } from '@/auth';
+import { getUser } from '@/actions/get-user';
 import { Routes } from '@/lib/constants';
 
+import Header from '@/components/modules/header';
+import Nav from '@/components/modules/nav';
 import New from './new';
 
 export default async function Page() {
-  const session = await auth();
-  if (!session) redirect(Routes.HOME);
+  const user = await getUser();
+  if (!user) redirect(Routes.HOME);
 
-  const userId = await getUserId(session);
-  if (!userId) redirect(Routes.HOME);
-
-  return <New userId={userId} />;
+  return (
+    <>
+      <Header />
+      <Nav user={user} />
+      <New userId={user.id} />
+    </>
+  );
 }
