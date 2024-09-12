@@ -29,6 +29,13 @@
       "when": 1725983920942,
       "tag": "0003_wealthy_darkstar",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1726154816744,
+      "tag": "0004_slow_pandemic",
+      "breakpoints": true
     }
   ]
 }

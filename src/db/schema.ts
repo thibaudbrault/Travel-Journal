@@ -14,10 +14,10 @@ export const travels = pgTable('travel', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  name: text('name'),
-  country: text('country'),
-  dateFrom: timestamp('from'),
-  dateTo: timestamp('to'),
+  name: text('name').notNull(),
+  country: text('country').notNull(),
+  dateFrom: timestamp('from').notNull(),
+  dateTo: timestamp('to').notNull(),
   userId: text('user_id').references(() => users.id),
 });
 
