@@ -114,3 +114,4 @@ export const authenticators = pgTable(
 );
 
 export type User = typeof users.$inferSelect;
+export type Travel = typeof travels.$inferSelect;
