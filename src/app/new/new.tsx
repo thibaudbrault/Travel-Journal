@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-import { DevTool } from '@hookform/devtools';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -62,7 +61,7 @@ export default function New({ userId }: Props) {
   };
 
   return (
-    <main className="flex grow flex-col items-center justify-center gap-8 p-24">
+    <main className="flex grow flex-col items-center justify-center gap-8">
       <h2 className="text-4xl font-semibold">Create your travel</h2>
       <Form {...form}>
         <form
@@ -197,7 +196,7 @@ export default function New({ userId }: Props) {
             </Button>
             <Button
               variant="default"
-              // disabled={!form.formState.isValid}
+              disabled={!form.formState.isValid}
               className="text-lg font-semibold"
               type="submit"
             >
@@ -206,7 +205,6 @@ export default function New({ userId }: Props) {
           </div>
         </form>
       </Form>
-      <DevTool control={form.control} />
     </main>
   );
 }
