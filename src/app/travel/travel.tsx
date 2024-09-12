@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAtomValue } from 'jotai';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -18,15 +17,19 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import { options } from '@/lib/constants';
-import { dateAtom, diffDaysAtom } from '@/lib/store';
+import type { Travel } from '@/db/schema';
+import { DAY, options } from '@/lib/constants';
+
+type Props = {
+  travel: Travel;
+};
 
 type Schema = z.infer<typeof upsertDaySchema>;
 
-export default function Travel() {
-  const date = useAtomValue(dateAtom);
-  const diffDays = useAtomValue(diffDaysAtom);
-  const startDate = new Date(date?.from);
+export default function Travel({ travel }: Props) {
+  const diffDays =
+    Math.round(Math.abs(travel.dateFrom - travel.dateTo) / DAY) ?? 0;
+  const startDate = new Date(travel.dateFrom);
 
   const form = useForm<Schema>({
     resolver: zodResolver(upsertDaySchema),
@@ -48,27 +51,30 @@ export default function Travel() {
       <p>
         From{' '}
         <span className="capitalize text-sky-400">
-          {date?.from?.toLocaleDateString(undefined, options)}
+          {travel.dateFrom?.toLocaleDateString(undefined, options)}
         </span>{' '}
         to{' '}
         <span className="capitalize text-sky-400">
-          {date?.to?.toLocaleDateString(undefined, options)}
+          {travel.dateTo?.toLocaleDateString(undefined, options)}
         </span>
       </p>
       {Array(diffDays + 1)
         .fill(null)
         .map((_, index) => {
-          const curDate = new Date(date?.from);
+          const curDate = new Date(travel.dateFrom);
           curDate.setDate(startDate.getDate() + index);
           return (
-            <>
-              <section key={index} className="w-full space-y-4">
-                <h2 className="text-xl">
-                  Day {index + 1}:{' '}
-                  <span className="font-semibold capitalize">
-                    {curDate.toLocaleDateString(undefined, options)}
-                  </span>
-                </h2>
+            <section key={index} className="w-full space-y-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl">
+                    Day {index + 1}:{' '}
+                    <span className="font-semibold capitalize">
+                      {curDate.toLocaleDateString(undefined, options)}
+                    </span>
+                  </h2>
+                  <Button variant="secondary">Is travel day</Button>
+                </div>
                 <Form {...form}>
                   <form
                     onSubmit={form.handleSubmit(onSubmit)}
@@ -162,14 +168,18 @@ export default function Travel() {
                         )}
                       />
                     </fieldset>
-                    <Button type="submit" className="font-semibold">
+                    <Button
+                      type="submit"
+                      className="font-semibold"
+                      disabled={!form.formState.isValid}
+                    >
                       Save
                     </Button>
                   </form>
                 </Form>
-              </section>
+              </div>
               <Separator />
-            </>
+            </section>
           );
         })}
     </main>
