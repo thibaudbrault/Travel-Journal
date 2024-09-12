@@ -3,13 +3,16 @@ import Link from 'next/link';
 
 import { signInAction } from '@/actions/sign-in';
 import { signOutAction } from '@/actions/sign-out';
-import { auth } from '@/auth';
 
+import { User } from '@/db/schema';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 
-export default async function Nav() {
-  const session = await auth();
+type Props = {
+  user: User | null;
+};
 
+export default async function Nav({ user }: Props) {
   return (
     <nav className="flex items-center justify-between px-8 py-2">
       <div className="flex gap-4">
@@ -24,17 +27,25 @@ export default async function Nav() {
           </Link>
         </Button>
       </div>
-      {session?.user ? (
-        <form action={signOutAction}>
-          <Button
-            variant="ghost"
-            type="submit"
-            className="flex items-center gap-1 font-semibold"
-          >
-            <LogOut />
-            Sign Out
-          </Button>
-        </form>
+      {user ? (
+        <div className="flex items-center gap-2">
+          <Avatar>
+            <AvatarImage src={user.image ?? ''} />
+            <AvatarFallback className="font-semibold">
+              {user.name?.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+          <form action={signOutAction}>
+            <Button
+              variant="ghost"
+              type="submit"
+              className="flex items-center gap-1 font-semibold"
+            >
+              <LogOut />
+              Sign Out
+            </Button>
+          </form>
+        </div>
       ) : (
         <form action={signInAction}>
           <Button
