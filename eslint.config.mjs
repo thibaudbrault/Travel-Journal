@@ -27,22 +27,21 @@ export default [
     includeIgnoreFile(gitignorePath),
     {
         files: ['src/**/*.{ts|tsx}'],
-        ignores: ['eslint.config.mjs', "tailwind.config.ts"],
         languageOptions: {
             parser: tseslint.parser,
-			sourceType: 'module',
-			ecmaVersion: 'latest',
-			parserOptions: {
+            sourceType: 'module',
+            ecmaVersion: 'latest',
+            parserOptions: {
                 project: './tsconfig.json',
-				extraFileExtensions: ['.tsx'],
-			},
-		},
-		plugins: {
+                extraFileExtensions: ['.tsx'],
+            },
+        },
+        plugins: {
             '@typescript-eslint': tseslint.plugin,
             react: reactPlugin,
             'react-hooks': fixupPluginRules(hooksPlugin),
             "unused-imports": unusedImports,
-		},
+        },
         settings: {
             'import-x/extensions': ['.ts', '.tsx']
         },
@@ -63,29 +62,32 @@ export default [
                 "error",
                 {
                     "groups": [
-                    "builtin",
-                    "external",
-                    "internal",
-                    ["parent", "sibling"],
-                    "object",
-                    "type",
-                    "index"
+                        "builtin",
+                        "external",
+                        "internal",
+                        ["parent", "sibling"],
+                        "object",
+                        "type",
+                        "index"
                     ],
                     "pathGroups": [
-                    {
-                        "pattern": "{react,react-dom/**}",
-                        "group": "external",
-                        "position": "before"
-                    }
+                        {
+                            "pattern": "{react,react-dom/**}",
+                            "group": "external",
+                            "position": "before"
+                        }
                     ],
                     "pathGroupsExcludedImportTypes": ["react"],
                     "newlines-between": "always",
                     "alphabetize": {
-                    "order": "asc",
-                    "caseInsensitive": true
+                        "order": "asc",
+                        "caseInsensitive": true
                     }
                 }
             ],
         }
+    },
+    {
+        ignores: ['eslint.config.mjs', 'tailwind.config.ts']
     }
 ]
