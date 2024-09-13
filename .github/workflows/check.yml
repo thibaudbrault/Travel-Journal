@@ -33,7 +33,7 @@ jobs:
         uses: ./.github/actions/build
 
       - name: Format code
-        run: pnpm prettier
+        run: pnpm prettier:check
 
   typecheck:
     name: TypeScript
