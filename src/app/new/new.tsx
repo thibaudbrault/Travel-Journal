@@ -53,7 +53,7 @@ export default function New({ userId }: Props) {
       name: '',
       country: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
   const onSubmit: SubmitHandler<Schema> = async (values) => {
