@@ -165,6 +165,7 @@ export default function New({ userId }: Props) {
                     <FormDescription>
                       <span className="font-bold text-sky-400">
                         {Math.round(
+                          // @ts-expect-error Operation works with dates
                           Math.abs(field.value?.from - field.value?.to) / DAY,
                         ) ?? 0}
                       </span>{' '}

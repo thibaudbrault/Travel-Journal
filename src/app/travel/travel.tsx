@@ -37,6 +37,7 @@ type Schema = z.infer<typeof upsertDaySchema>;
 
 export default function Travel({ travel }: Props) {
   const diffDays =
+    // @ts-expect-error Operation works with dates
     Math.round(Math.abs(travel.dateFrom - travel.dateTo) / DAY) ?? 0;
   const startDate = new Date(travel.dateFrom);
 
