@@ -17,7 +17,7 @@ export default async function Nav({ user }: Props) {
     <nav className="flex items-center justify-between px-8 py-2">
       <div className="flex gap-4">
         <Button variant="secondary" asChild>
-          <Link href="/" className="flex gap-1 font-semibold">
+          <Link href="/travels" className="flex gap-1 font-semibold">
             <List /> Travels
           </Link>
         </Button>
