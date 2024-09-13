@@ -1,0 +1,48 @@
+name: Lint and type check
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request: {}
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up repo
+        uses: ./.github/actions/build
+
+      - name: Lint
+        run: pnpm lint
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up repo
+        uses: ./.github/actions/build
+
+      - name: Format code
+        run: pnpm prettier
+
+  typecheck:
+    name: TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up repo
+        uses: ./.github/actions/build
+
+      - name: Type check
+        run: pnpm type
