@@ -229,4 +229,4 @@ export const countries = [
   { value: 'yemen', label: 'Yemen', flag: '🇾🇪' },
   { value: 'zambia', label: 'Zambia', flag: '🇿🇲' },
   { value: 'zimbabwe', label: 'Zimbabwe', flag: '🇿🇼' },
-];
+] as const;
