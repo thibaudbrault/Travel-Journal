@@ -181,7 +181,6 @@ export default function New({ userId }: Props) {
             <Button
               variant="destructive"
               onClick={() => form.reset()}
-              className="text-lg"
               type="reset"
             >
               Reset
@@ -189,7 +188,6 @@ export default function New({ userId }: Props) {
             <Button
               variant="secondary"
               onClick={() => setMonth(today)}
-              className="text-lg"
               type="button"
             >
               Today
@@ -197,7 +195,7 @@ export default function New({ userId }: Props) {
             <Button
               variant="default"
               disabled={!form.formState.isValid}
-              className="text-lg font-semibold"
+              className="font-semibold"
               type="submit"
             >
               Select
