@@ -16,6 +16,7 @@ export const authConfig: NextAuthConfig = {
       },
     }),
   ],
+  trustHost: true,
   callbacks: {
     authorized: async ({ auth }) => {
       return !!auth;
