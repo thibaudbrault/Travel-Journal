@@ -15,7 +15,7 @@ export const getUser = cache(async (): Promise<User | null> => {
     const session = await auth();
     const userId = session?.user?.id;
     if (!userId) {
-      throw new Error('ID not found');
+      return null;
     }
     const user = await db.query.users.findFirst({
       where: eq(users.id, userId),
@@ -34,13 +34,13 @@ export const getUserId = cache(
     try {
       const id = session?.user?.id;
       if (!id) {
-        throw new Error('ID not found');
+        return null;
       }
       const user = await db.query.users.findFirst({
         where: eq(users.id, id),
       });
       if (!user) {
-        throw new Error('User not found');
+        return null;
       }
       const userId = user.id;
       return userId;
