@@ -178,25 +178,31 @@ export default function New({ userId }: Props) {
             />
             <input value={userId} {...form.register('userId')} hidden />
           </fieldset>
-          <div className="flex w-full items-center justify-center gap-4">
-            <Button
-              variant="destructive"
-              onClick={() => form.reset()}
-              type="reset"
-            >
-              Reset
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={() => setMonth(today)}
-              type="button"
-            >
-              Today
-            </Button>
+          <div className="flex w-full flex-col items-center justify-center gap-2">
+            <div className="flex w-full items-center gap-2">
+              <Button
+                variant="destructive"
+                onClick={() => form.reset()}
+                type="reset"
+                className="w-full"
+                disabled={!form.formState.isDirty}
+              >
+                Reset
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => setMonth(today)}
+                type="button"
+                className="w-full"
+                disabled={month.getMonth() === today.getMonth()}
+              >
+                Today
+              </Button>
+            </div>
             <Button
               variant="default"
               disabled={!form.formState.isValid}
-              className="font-semibold"
+              className="w-full font-semibold"
               type="submit"
             >
               Select
