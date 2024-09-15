@@ -25,7 +25,7 @@ export const days = pgTable('day', {
 });
 
 export const daysRelations = relations(days, ({ one }) => ({
-  user: one(travels, {
+  travel: one(travels, {
     fields: [days.travelId],
     references: [travels.id],
   }),
@@ -42,11 +42,12 @@ export const travels = pgTable('travel', {
   userId: text('user_id').references(() => users.id),
 });
 
-export const travelsRelations = relations(travels, ({ one }) => ({
+export const travelsRelations = relations(travels, ({ one, many }) => ({
   user: one(users, {
     fields: [travels.userId],
     references: [users.id],
   }),
+  days: many(days),
 }));
 
 export const users = pgTable('user', {
@@ -136,3 +137,4 @@ export const authenticators = pgTable(
 
 export type User = typeof users.$inferSelect;
 export type Travel = typeof travels.$inferSelect;
+export type Day = typeof days.$inferSelect;
