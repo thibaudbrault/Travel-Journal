@@ -14,6 +14,9 @@ export const getTravel = cache(
       }
       const travel = await db.query.travels.findFirst({
         where: and(eq(travels.id, travelId), eq(travels.userId, userId)),
+        with: {
+          days: true,
+        },
       });
       if (!travel) redirect(Routes.HOME);
       return travel;

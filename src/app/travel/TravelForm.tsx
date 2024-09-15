@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { upsertDaySchema } from '@/actions/upsert-day/schema';
@@ -17,24 +17,34 @@ import {
 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { upsertDay } from '@/actions/upsert-day';
+import { Day } from '@/db/schema';
+
+type Props = {
+  travelId: string;
+  date: Date;
+  day: Day;
+};
 
 type Schema = z.infer<typeof upsertDaySchema>;
 
-export default function TravelForm() {
+export default function TravelForm({ travelId, date, day }: Props) {
   const form = useForm<Schema>({
     resolver: zodResolver(upsertDaySchema),
     defaultValues: {
-      breakfast: '',
-      morning: '',
-      lunch: '',
-      afternoon: '',
-      diner: '',
-      link: '',
+      date,
+      breakfast: day?.breakfast ?? '',
+      morning: day?.morning ?? '',
+      lunch: day?.lunch ?? '',
+      afternoon: day?.afternoon ?? '',
+      diner: day?.diner ?? '',
+      link: day?.link ?? '',
+      travelId,
     },
   });
 
-  const onSubmit = (values: Schema) => {
-    console.log(values);
+  const onSubmit: SubmitHandler<Schema> = async (values: Schema) => {
+    await upsertDay(values);
   };
 
   return (
@@ -50,7 +60,13 @@ export default function TravelForm() {
                 <FormControl>
                   <div className="flex items-center gap-2">
                     <Input placeholder="Your breakfast" {...field} />
-                    <Button variant="ghost">None</Button>
+                    <Button
+                      variant={field.value === 'None' ? 'default' : 'ghost'}
+                      type="button"
+                      onClick={() => form.setValue('breakfast', 'None')}
+                    >
+                      None
+                    </Button>
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -79,7 +95,13 @@ export default function TravelForm() {
                 <FormControl>
                   <div className="flex items-center gap-2">
                     <Input placeholder="Your breakfast" {...field} />
-                    <Button variant="ghost">None</Button>
+                    <Button
+                      variant={field.value === 'None' ? 'default' : 'ghost'}
+                      type="button"
+                      onClick={() => form.setValue('lunch', 'None')}
+                    >
+                      None
+                    </Button>
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -111,7 +133,13 @@ export default function TravelForm() {
                 <FormControl>
                   <div className="flex items-center gap-2">
                     <Input placeholder="Your diner" {...field} />
-                    <Button variant="ghost">None</Button>
+                    <Button
+                      variant={field.value === 'None' ? 'default' : 'ghost'}
+                      type="button"
+                      onClick={() => form.setValue('diner', 'None')}
+                    >
+                      None
+                    </Button>
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -127,7 +155,13 @@ export default function TravelForm() {
                 <FormControl>
                   <div className="flex items-center gap-2">
                     <Input placeholder="Link related to this day" {...field} />
-                    <Button variant="ghost">None</Button>
+                    <Button
+                      variant={field.value === 'None' ? 'default' : 'ghost'}
+                      type="button"
+                      onClick={() => form.setValue('link', 'None')}
+                    >
+                      None
+                    </Button>
                   </div>
                 </FormControl>
                 <FormMessage />

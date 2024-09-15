@@ -13,9 +13,10 @@ import { Separator } from '@/components/ui/separator';
 import type { Travel } from '@/db/schema';
 import { DAY, options } from '@/lib/constants';
 import TravelForm from './TravelForm';
+import { TravelWithDays } from '@/lib/types';
 
 type Props = {
-  travel: Travel;
+  travel: TravelWithDays;
 };
 
 export default function Travel({ travel }: Props) {
@@ -44,6 +45,9 @@ export default function Travel({ travel }: Props) {
         .map((_, index) => {
           const curDate = new Date(travel.dateFrom);
           curDate.setDate(startDate.getDate() + index);
+          const day = travel.days.find(
+            (day) => new Date(day.date).getTime() === curDate.getTime(),
+          );
           return (
             <section key={index} className="w-full space-y-4">
               <Dialog>
@@ -64,7 +68,7 @@ export default function Travel({ travel }: Props) {
                       Enter the activities for this day
                     </DialogDescription>
                   </DialogHeader>
-                  <TravelForm />
+                  <TravelForm travelId={travel.id} date={curDate} day={day} />
                 </DialogContent>
               </Dialog>
 
