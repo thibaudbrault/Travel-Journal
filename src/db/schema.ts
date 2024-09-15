@@ -10,6 +10,27 @@ import {
 
 import type { AdapterAccountType } from 'next-auth/adapters';
 
+export const days = pgTable('day', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  date: timestamp('date').notNull(),
+  breakfast: text('breakfast'),
+  morning: text('morning').notNull(),
+  lunch: text('lunch'),
+  afternoon: text('afternoon').notNull(),
+  diner: text('diner'),
+  link: text('link'),
+  travelId: text('travel_id').references(() => travels.id),
+});
+
+export const daysRelations = relations(days, ({ one }) => ({
+  user: one(travels, {
+    fields: [days.travelId],
+    references: [travels.id],
+  }),
+}));
+
 export const travels = pgTable('travel', {
   id: text('id')
     .primaryKey()
