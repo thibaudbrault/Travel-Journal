@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Travel } from '@/db/schema';
-import { Routes } from '@/lib/constants';
+import { options, Routes } from '@/lib/constants';
 import Link from 'next/link';
 import React from 'react';
 
@@ -10,11 +10,30 @@ type Props = {
 
 export default function Travels({ travels }: Props) {
   return travels && travels.length > 0 ? (
-    <section>
-      <h2>Your travels</h2>
+    <section className="flex flex-col gap-4 px-8 py-12">
+      <h2 className="text-center text-4xl font-semibold capitalize">
+        Your travels
+      </h2>
       <ul>
         {travels.map((travel) => (
-          <li key={travel.id}>{travel.name}</li>
+          <li key={travel.id} className="flex list-disc flex-col">
+            <Link
+              href={`${Routes.TRAVEL}?id=${travel.id}`}
+              className="text-xl font-semibold transition-all duration-300 ease-in-out hover:text-sky-400"
+            >
+              {travel.name}
+            </Link>
+            <p className="text-xs text-neutral-300">
+              From{' '}
+              <span>
+                {travel.dateFrom.toLocaleDateString(undefined, options)}
+              </span>{' '}
+              to{' '}
+              <span>
+                {travel.dateTo.toLocaleDateString(undefined, options)}
+              </span>
+            </p>
+          </li>
         ))}
       </ul>
     </section>
