@@ -5,8 +5,8 @@ export const createTravelSchema = z.object({
   country: z.string({ required_error: 'Select a country' }),
   date: z.object(
     {
-      from: z.date(),
-      to: z.date(),
+      from: z.date({ message: 'Selet a start date' }),
+      to: z.date({ message: 'Select an end date' }),
     },
     { message: 'Select a start and end date' },
   ),
