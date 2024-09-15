@@ -1,19 +1,5 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { upsertDaySchema } from '@/actions/upsert-day/schema';
-import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import {
   Dialog,
   DialogContent,
@@ -23,38 +9,20 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { Textarea } from '@/components/ui/textarea';
 import type { Travel } from '@/db/schema';
 import { DAY, options } from '@/lib/constants';
+import TravelForm from './TravelForm';
 
 type Props = {
   travel: Travel;
 };
-
-type Schema = z.infer<typeof upsertDaySchema>;
 
 export default function Travel({ travel }: Props) {
   const diffDays =
     // @ts-expect-error Operation works with dates
     Math.round(Math.abs(travel.dateFrom - travel.dateTo) / DAY) ?? 0;
   const startDate = new Date(travel.dateFrom);
-
-  const form = useForm<Schema>({
-    resolver: zodResolver(upsertDaySchema),
-    defaultValues: {
-      breakfast: '',
-      morning: '',
-      lunch: '',
-      afternoon: '',
-      diner: '',
-    },
-  });
-
-  const onSubmit = (values: Schema) => {
-    console.log(values);
-  };
 
   return (
     <main className="flex grow flex-col items-center justify-center gap-8 p-12">
@@ -79,15 +47,13 @@ export default function Travel({ travel }: Props) {
           return (
             <section key={index} className="w-full space-y-4">
               <Dialog>
-                <DialogTrigger>
-                  <h3 className="text-xl">
-                    <small className="text-xs text-neutral-300">
-                      Day {index + 1}:
-                    </small>{' '}
-                    <span className="font-semibold capitalize">
-                      {curDate.toLocaleDateString(undefined, options)}
-                    </span>
-                  </h3>
+                <DialogTrigger className="text-xl transition-all duration-300 ease-in-out hover:text-sky-400">
+                  <small className="text-xs text-neutral-300">
+                    Day {index + 1}:
+                  </small>{' '}
+                  <span className="font-semibold capitalize">
+                    {curDate.toLocaleDateString(undefined, options)}
+                  </span>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
@@ -98,108 +64,7 @@ export default function Travel({ travel }: Props) {
                       Enter the activities for this day
                     </DialogDescription>
                   </DialogHeader>
-                  <Form {...form}>
-                    <form
-                      onSubmit={form.handleSubmit(onSubmit)}
-                      className="space-y-4"
-                    >
-                      <fieldset className="space-y-2">
-                        <FormField
-                          control={form.control}
-                          name="breakfast"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Breakfast</FormLabel>
-                              <FormControl>
-                                <div className="flex items-center gap-2">
-                                  <Input
-                                    placeholder="Your breakfast"
-                                    {...field}
-                                  />
-                                  <Button variant="ghost">None</Button>
-                                </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="morning"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Morning</FormLabel>
-                              <FormControl>
-                                <Textarea
-                                  placeholder="Your morning activities"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="lunch"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Lunch</FormLabel>
-                              <FormControl>
-                                <div className="flex items-center gap-2">
-                                  <Input
-                                    placeholder="Your breakfast"
-                                    {...field}
-                                  />
-                                  <Button variant="ghost">None</Button>
-                                </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="afternoon"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Afternoon</FormLabel>
-                              <FormControl>
-                                <Textarea
-                                  placeholder="Your afternoon activities"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="diner"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Diner</FormLabel>
-                              <FormControl>
-                                <div className="flex items-center gap-2">
-                                  <Input placeholder="Your diner" {...field} />
-                                  <Button variant="ghost">None</Button>
-                                </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </fieldset>
-                      <Button
-                        type="submit"
-                        className="w-full font-semibold"
-                        disabled={!form.formState.isValid}
-                      >
-                        Save
-                      </Button>
-                    </form>
-                  </Form>
+                  <TravelForm />
                 </DialogContent>
               </Dialog>
 

@@ -1,0 +1,148 @@
+'use client';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+import { upsertDaySchema } from '@/actions/upsert-day/schema';
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+
+type Schema = z.infer<typeof upsertDaySchema>;
+
+export default function TravelForm() {
+  const form = useForm<Schema>({
+    resolver: zodResolver(upsertDaySchema),
+    defaultValues: {
+      breakfast: '',
+      morning: '',
+      lunch: '',
+      afternoon: '',
+      diner: '',
+      link: '',
+    },
+  });
+
+  const onSubmit = (values: Schema) => {
+    console.log(values);
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <fieldset className="space-y-2">
+          <FormField
+            control={form.control}
+            name="breakfast"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Breakfast</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-2">
+                    <Input placeholder="Your breakfast" {...field} />
+                    <Button variant="ghost">None</Button>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="morning"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Morning</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="Your morning activities" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lunch"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Lunch</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-2">
+                    <Input placeholder="Your breakfast" {...field} />
+                    <Button variant="ghost">None</Button>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="afternoon"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Afternoon</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Your afternoon activities"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="diner"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Diner</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-2">
+                    <Input placeholder="Your diner" {...field} />
+                    <Button variant="ghost">None</Button>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="link"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Link</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-2">
+                    <Input placeholder="Link related to this day" {...field} />
+                    <Button variant="ghost">None</Button>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </fieldset>
+        <Button
+          type="submit"
+          className="w-full font-semibold"
+          disabled={!form.formState.isValid}
+        >
+          Save
+        </Button>
+      </form>
+    </Form>
+  );
+}
