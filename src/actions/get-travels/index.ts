@@ -12,6 +12,9 @@ export const getTravels = cache(
       }
       const travelArr = await db.query.travels.findMany({
         where: eq(travels.userId, userId),
+        with: {
+          days: true,
+        },
       });
       return travelArr;
     } catch {
