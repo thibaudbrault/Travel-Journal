@@ -19,6 +19,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { upsertDay } from '@/actions/upsert-day';
 import { Day } from '@/db/schema';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   travelId: string;
@@ -29,6 +30,8 @@ type Props = {
 type Schema = z.infer<typeof upsertDaySchema>;
 
 export default function TravelForm({ travelId, date, day }: Props) {
+  const router = useRouter();
+
   const form = useForm<Schema>({
     resolver: zodResolver(upsertDaySchema),
     defaultValues: {
@@ -45,6 +48,7 @@ export default function TravelForm({ travelId, date, day }: Props) {
 
   const onSubmit: SubmitHandler<Schema> = async (values: Schema) => {
     await upsertDay(values);
+    router.refresh();
   };
 
   return (
