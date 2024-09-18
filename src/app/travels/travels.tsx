@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Travel } from '@/db/schema';
-import { options, Routes } from '@/lib/constants';
+import { options, ROUTES } from '@/lib/constants';
 import Link from 'next/link';
 import React from 'react';
 
@@ -18,7 +18,7 @@ export default function Travels({ travels }: Props) {
         {travels.map((travel) => (
           <li key={travel.id} className="flex list-disc flex-col">
             <Link
-              href={`${Routes.TRAVEL}?id=${travel.id}`}
+              href={`${ROUTES.TRAVEL}?id=${travel.id}`}
               className="text-xl font-semibold transition-all duration-300 ease-in-out hover:text-sky-400"
             >
               {travel.name}
@@ -41,7 +41,7 @@ export default function Travels({ travels }: Props) {
     <section className="flex h-full flex-col items-center justify-center gap-4">
       <p className="text-6xl font-bold">You haven't created any travel yet</p>
       <Button variant="default" className="font-semibold" asChild>
-        <Link href={Routes.NEW}>Create a travel</Link>
+        <Link href={ROUTES.NEW}>Create a travel</Link>
       </Button>
     </section>
   );

@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import { getUser } from '@/actions/get-user';
-import { Routes } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 
 import Header from '@/components/modules/header';
 import Nav from '@/components/modules/nav';
@@ -10,7 +10,7 @@ import { getTravels } from '@/actions/get-travels';
 
 export default async function Page() {
   const user = await getUser();
-  if (!user) redirect(Routes.HOME);
+  if (!user) redirect(ROUTES.HOME);
 
   const userId = user.id;
   const travels = await getTravels(userId);

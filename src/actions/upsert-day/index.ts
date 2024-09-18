@@ -6,7 +6,7 @@ import { db } from '@/db';
 import { days } from '@/db/schema';
 import { upsertDaySchema } from './schema';
 import { revalidatePath } from 'next/cache';
-import { Routes } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 import { sql } from 'drizzle-orm';
 
 export const upsertDay = authActionClient
@@ -49,6 +49,6 @@ export const upsertDay = authActionClient
             link: sql`excluded.link`,
           },
         });
-      revalidatePath(`${Routes.TRAVEL}/?id=${travelId}`);
+      revalidatePath(`${ROUTES.TRAVEL}/?id=${travelId}`);
     },
   );

@@ -7,7 +7,7 @@ export const options: Intl.DateTimeFormatOptions = {
 
 export const DAY = 24 * 60 * 60 * 1000;
 
-export const Routes = {
+export const ROUTES = {
   HOME: '/',
   PROFILE: '/profile',
   TRAVEL: '/travel',

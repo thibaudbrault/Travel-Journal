@@ -2,7 +2,7 @@ import { cache } from 'react';
 
 import { db } from '@/db';
 import { Travel, travels } from '@/db/schema';
-import { Routes } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 import { and, eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 
@@ -18,7 +18,7 @@ export const getTravel = cache(
           days: true,
         },
       });
-      if (!travel) redirect(Routes.HOME);
+      if (!travel) redirect(ROUTES.HOME);
       return travel;
     } catch {
       throw new Error('Error fetching travel');

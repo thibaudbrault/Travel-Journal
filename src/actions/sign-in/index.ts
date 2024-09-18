@@ -1,8 +1,8 @@
 'use server';
 
 import { signIn } from '@/auth';
-import { Routes } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 
 export const signInAction = async () => {
-  await signIn('google', { redirectTo: Routes.HOME });
+  await signIn('google', { redirectTo: ROUTES.HOME });
 };

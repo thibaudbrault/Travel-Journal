@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { Routes } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 
 import { getTravel } from '@/actions/get-travel';
 import { getUser } from '@/actions/get-user';
@@ -17,7 +17,7 @@ type Props = {
 export default async function Page({ searchParams }: Props) {
   const { id } = searchParams;
   const user = await getUser();
-  if (!user) redirect(Routes.HOME);
+  if (!user) redirect(ROUTES.HOME);
 
   const travel = await getTravel(user.id, id);
 

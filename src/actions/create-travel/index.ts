@@ -7,7 +7,7 @@ import { createTravelSchema } from './schema';
 import { db } from '@/db';
 import { travels } from '@/db/schema';
 import { redirect } from 'next/navigation';
-import { Routes } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 
 export const createTravel = authActionClient
   .metadata({ actionName: 'createTravel' })
@@ -23,5 +23,5 @@ export const createTravel = authActionClient
         userId,
       })
       .returning({ travelId: travels.id });
-    redirect(`${Routes.TRAVEL}?id=${newTravel[0].travelId}`);
+    redirect(`${ROUTES.TRAVEL}?id=${newTravel[0].travelId}`);
   });

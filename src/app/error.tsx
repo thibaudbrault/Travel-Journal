@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import { Routes } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 
 type Props = {
   error: Error & { digest?: string };
@@ -22,7 +22,7 @@ export default function Error({ error }: Props) {
       <Button
         variant="destructive"
         className="text-xl font-semibold"
-        onClick={redirect(Routes.HOME)}
+        onClick={redirect(ROUTES.HOME)}
       >
         Go Home
       </Button>
