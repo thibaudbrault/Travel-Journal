@@ -6,23 +6,30 @@ import {
   primaryKey,
   text,
   timestamp,
+  unique,
 } from 'drizzle-orm/pg-core';
 
 import type { AdapterAccountType } from 'next-auth/adapters';
 
-export const days = pgTable('day', {
-  id: text('id')
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  date: timestamp('date').notNull(),
-  breakfast: text('breakfast'),
-  morning: text('morning').notNull(),
-  lunch: text('lunch'),
-  afternoon: text('afternoon').notNull(),
-  diner: text('diner'),
-  link: text('link'),
-  travelId: text('travel_id').references(() => travels.id),
-});
+export const days = pgTable(
+  'day',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    date: timestamp('date').notNull(),
+    breakfast: text('breakfast'),
+    morning: text('morning').notNull(),
+    lunch: text('lunch'),
+    afternoon: text('afternoon').notNull(),
+    diner: text('diner'),
+    link: text('link'),
+    travelId: text('travel_id').references(() => travels.id),
+  },
+  (table) => ({
+    unq: unique().on(table.travelId, table.date),
+  }),
+);
 
 export const daysRelations = relations(days, ({ one }) => ({
   travel: one(travels, {

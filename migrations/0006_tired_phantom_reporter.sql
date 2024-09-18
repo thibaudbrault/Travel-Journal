@@ -1,0 +1,1 @@
+ALTER TABLE "day" ADD CONSTRAINT "day_travel_id_date_unique" UNIQUE("travel_id","date");
