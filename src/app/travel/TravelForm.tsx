@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -86,6 +87,7 @@ export default function TravelForm({ travelId, date, day }: Props) {
                 <FormControl>
                   <Textarea placeholder="Your morning activities" {...field} />
                 </FormControl>
+                <FormDescription>You can use Markdown</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -124,6 +126,7 @@ export default function TravelForm({ travelId, date, day }: Props) {
                     {...field}
                   />
                 </FormControl>
+                <FormDescription>You can use Markdown</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
