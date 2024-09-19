@@ -15,9 +15,9 @@
     "type": "tsc --noEmit",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "prettier": "prettier",
-    "prettier:check": "prettier --check",
-    "prettier:write": "prettier --write",
+    "prettier": "prettier \"src/**/*.+(ts|js|tsx)\"",
+    "prettier:check": "prettier \"src/**/*.+(ts|js|tsx)\" --check",
+    "prettier:write": "prettier \"src/**/*.+(ts|js|tsx)\" --write",
     "prepare": "husky"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
     "react-day-picker": "8.10.1",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
+    "react-markdown": "^9.0.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"

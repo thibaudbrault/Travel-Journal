@@ -15,6 +15,7 @@ import { DAY, options } from '@/lib/constants';
 import TravelForm from './TravelForm';
 import { TravelWithDays } from '@/lib/types';
 import Link from 'next/link';
+import Markdown from 'react-markdown';
 
 type Props = {
   travel: TravelWithDays;
@@ -30,7 +31,7 @@ export default function Travel({ travel }: Props) {
     <main className="flex grow flex-col items-center justify-center gap-8 p-12">
       <div className="flex flex-col items-center">
         <h2 className="text-4xl font-semibold">Select a day</h2>
-        <small className="text-neutral-300">
+        <small className="text-muted-foreground">
           From{' '}
           <span className="capitalize text-sky-400">
             {travel.dateFrom?.toLocaleDateString(undefined, options)}
@@ -52,9 +53,7 @@ export default function Travel({ travel }: Props) {
           return (
             <section key={index} className="w-full space-y-4">
               <div>
-                <small className="text-xs text-neutral-300">
-                  Day {index + 1}:
-                </small>{' '}
+                <small className="text-xs text-sky-300">Day {index + 1}:</small>{' '}
                 <Dialog>
                   <DialogTrigger className="text-xl transition-all duration-300 ease-in-out hover:text-sky-400">
                     <span className="font-semibold capitalize">
@@ -78,11 +77,19 @@ export default function Travel({ travel }: Props) {
                 {day?.breakfast && day.breakfast !== 'None' && (
                   <li>Breakfast: {day.breakfast}</li>
                 )}
-                {day?.morning && <li>Morning: {day.morning}</li>}
+                {day?.morning && (
+                  <li>
+                    Morning: <Markdown>{day.morning}</Markdown>
+                  </li>
+                )}
                 {day?.lunch && day.lunch !== 'None' && (
                   <li>Lunch: {day.lunch}</li>
                 )}
-                {day?.afternoon && <li>Afternoon: {day.afternoon}</li>}
+                {day?.afternoon && (
+                  <li>
+                    Afternoon: <Markdown>{day.afternoon}</Markdown>
+                  </li>
+                )}
                 {day?.diner && day.diner !== 'None' && (
                   <li>Diner: {day.diner}</li>
                 )}
