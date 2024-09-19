@@ -23,7 +23,7 @@ export default function Travels({ travels }: Props) {
             >
               {travel.name}
             </Link>
-            <p className="text-xs text-neutral-300">
+            <p className="text-xs text-muted-foreground">
               From{' '}
               <span>
                 {travel.dateFrom.toLocaleDateString(undefined, options)}

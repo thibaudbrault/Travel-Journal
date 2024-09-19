@@ -5,7 +5,9 @@ export default async function Home() {
         Remember all your travels with{' '}
         <span className="text-sky-400">TravelVault</span>
       </h2>
-      <p className="text-neutral-300">Create a new travel to get started</p>
+      <p className="text-muted-foreground">
+        Create a new travel to get started
+      </p>
     </main>
   );
 }
