@@ -156,6 +156,7 @@ export default function New({ userId }: Props) {
                       numberOfMonths={2}
                       month={month}
                       onMonthChange={setMonth}
+                      showOutsideDays
                       ISOWeek
                       className="rounded-md border border-input"
                     />
