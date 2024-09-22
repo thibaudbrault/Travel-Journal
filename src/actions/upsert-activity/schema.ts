@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const upsertDaySchema = z.object({
+export const upsertActivitySchema = z.object({
   date: z.date(),
   breakfast: z.string().optional(),
   morning: z.string().min(1, {

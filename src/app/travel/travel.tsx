@@ -8,13 +8,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { Separator } from '@/components/ui/separator';
 import type { Travel } from '@/db/schema';
 import { DAY, options } from '@/lib/constants';
-import TravelForm from './TravelForm';
+import ActivitiesForm from './ActivtiesForm';
 import { TravelWithDays } from '@/lib/types';
 import Link from 'next/link';
+import JourneyForm from './JourneyForm';
 
 type Props = {
   travel: TravelWithDays;
@@ -62,15 +64,39 @@ export default function Travel({ travel }: Props) {
                     </span>
                   </DialogTrigger>
                   <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle className="capitalize">
-                        {curDate.toLocaleDateString(undefined, options)}
-                      </DialogTitle>
-                      <DialogDescription>
-                        Enter the activities for this day
-                      </DialogDescription>
-                    </DialogHeader>
-                    <TravelForm travelId={travel.id} date={curDate} day={day} />
+                    <Tabs defaultValue="activities">
+                      <DialogHeader>
+                        <DialogTitle className="capitalize">
+                          {curDate.toLocaleDateString(undefined, options)}
+                        </DialogTitle>
+                        <DialogDescription>
+                          Enter the activities for this day
+                        </DialogDescription>
+                      </DialogHeader>
+                      <TabsList className="mt-2 w-full">
+                        <TabsTrigger value="activities" className="w-full">
+                          Activities
+                        </TabsTrigger>
+                        <TabsTrigger value="travel" className="w-full">
+                          Travel
+                        </TabsTrigger>
+                      </TabsList>
+                      <Separator className="my-4" />
+                      <TabsContent value="activities">
+                        <ActivitiesForm
+                          travelId={travel.id}
+                          date={curDate}
+                          day={day}
+                        />
+                      </TabsContent>
+                      <TabsContent value="travel">
+                        <JourneyForm
+                          travelId={travel.id}
+                          date={curDate}
+                          day={day}
+                        />
+                      </TabsContent>
+                    </Tabs>
                   </DialogContent>
                 </Dialog>
               </div>

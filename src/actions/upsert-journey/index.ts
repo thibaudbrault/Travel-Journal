@@ -4,35 +4,23 @@ import { authActionClient } from '@/lib/safe-actions';
 
 import { db } from '@/db';
 import { days } from '@/db/schema';
-import { upsertDaySchema } from './schema';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '@/lib/constants';
 import { sql } from 'drizzle-orm';
+import { upsertJourneySchema } from './schema';
 
-export const upsertDay = authActionClient
+export const upsertJourney = authActionClient
   .metadata({ actionName: 'upsertDay' })
-  .schema(upsertDaySchema)
+  .schema(upsertJourneySchema)
   .action(
     async ({
-      parsedInput: {
-        date,
-        breakfast,
-        morning,
-        lunch,
-        afternoon,
-        diner,
-        link,
-        travelId,
-      },
+      parsedInput: { date, depart, arrival, transportation, travelId },
     }) => {
       const values = {
         date,
-        breakfast,
-        morning,
-        lunch,
-        afternoon,
-        diner,
-        link,
+        depart,
+        arrival,
+        transportation,
         travelId,
       };
       await db
@@ -41,12 +29,9 @@ export const upsertDay = authActionClient
         .onConflictDoUpdate({
           target: [days.date, days.travelId],
           set: {
-            breakfast: sql`excluded.breakfast`,
-            morning: sql`excluded.morning`,
-            lunch: sql`excluded.lunch`,
-            afternoon: sql`excluded.afternoon`,
-            diner: sql`excluded.diner`,
-            link: sql`excluded.link`,
+            depart: sql`excluded.depart`,
+            arrival: sql`excluded.arrival`,
+            transportation: sql`excluded.transportation`,
           },
         });
       revalidatePath(`${ROUTES.TRAVEL}/?id=${travelId}`);

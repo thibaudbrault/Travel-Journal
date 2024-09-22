@@ -1,7 +1,9 @@
+import { transportationValues } from '@/lib/constants';
 import { relations } from 'drizzle-orm';
 import {
   boolean,
   integer,
+  pgEnum,
   pgTable,
   primaryKey,
   text,
@@ -11,6 +13,11 @@ import {
 
 import type { AdapterAccountType } from 'next-auth/adapters';
 
+export const transportationEnum = pgEnum(
+  'transportation',
+  transportationValues,
+);
+
 export const days = pgTable(
   'day',
   {
@@ -19,11 +26,14 @@ export const days = pgTable(
       .$defaultFn(() => crypto.randomUUID()),
     date: timestamp('date').notNull(),
     breakfast: text('breakfast'),
-    morning: text('morning').notNull(),
+    morning: text('morning'),
     lunch: text('lunch'),
-    afternoon: text('afternoon').notNull(),
+    afternoon: text('afternoon'),
     diner: text('diner'),
     link: text('link'),
+    depart: timestamp('depart'),
+    arrival: timestamp('arrival'),
+    transportation: transportationEnum('transportation'),
     travelId: text('travel_id').references(() => travels.id),
   },
   (table) => ({
