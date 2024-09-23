@@ -10,16 +10,19 @@ type Props = {
 
 export default function Travels({ travels }: Props) {
   return travels && travels.length > 0 ? (
-    <section className="flex flex-col gap-4 px-8 py-12">
+    <section className="flex flex-col gap-8 px-8 py-12">
       <h2 className="text-center text-4xl font-semibold capitalize">
         Your travels
       </h2>
       <ul>
         {travels.map((travel) => (
-          <li key={travel.id} className="flex list-disc flex-col">
+          <li
+            key={travel.id}
+            className="flex list-disc flex-col rounded-md px-4 py-2 transition-all duration-300 ease-in-out hover:bg-primary-foreground"
+          >
             <Link
               href={`${ROUTES.TRAVEL}?id=${travel.id}`}
-              className="text-xl font-semibold transition-all duration-300 ease-in-out hover:text-sky-400"
+              className="w-fit text-xl font-semibold transition-all duration-300 ease-in-out hover:text-sky-400"
             >
               {travel.name}
             </Link>

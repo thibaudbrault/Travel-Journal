@@ -5,6 +5,8 @@ export const options: Intl.DateTimeFormatOptions = {
   year: 'numeric',
 };
 
+export const transportationValues = ['car', 'train', 'plane'] as const;
+
 export const DAY = 24 * 60 * 60 * 1000;
 
 export const ROUTES = {

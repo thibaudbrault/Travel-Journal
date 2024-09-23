@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { upsertDaySchema } from '@/actions/upsert-day/schema';
+import { upsertActivitySchema } from '@/actions/upsert-activity/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -18,7 +18,7 @@ import {
 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { upsertDay } from '@/actions/upsert-day';
+import { upsertActivity } from '@/actions/upsert-activity';
 import { Day } from '@/db/schema';
 import { useRouter } from 'next/navigation';
 
@@ -28,13 +28,13 @@ type Props = {
   day: Day;
 };
 
-type Schema = z.infer<typeof upsertDaySchema>;
+type Schema = z.infer<typeof upsertActivitySchema>;
 
-export default function TravelForm({ travelId, date, day }: Props) {
+export default function ActivitiesForm({ travelId, date, day }: Props) {
   const router = useRouter();
 
   const form = useForm<Schema>({
-    resolver: zodResolver(upsertDaySchema),
+    resolver: zodResolver(upsertActivitySchema),
     defaultValues: {
       date,
       breakfast: day?.breakfast ?? '',
@@ -48,7 +48,7 @@ export default function TravelForm({ travelId, date, day }: Props) {
   });
 
   const onSubmit: SubmitHandler<Schema> = async (values: Schema) => {
-    await upsertDay(values);
+    await upsertActivity(values);
     router.refresh();
   };
 

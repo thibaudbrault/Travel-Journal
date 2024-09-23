@@ -50,6 +50,20 @@
       "when": 1726672090683,
       "tag": "0006_tired_phantom_reporter",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1727020277946,
+      "tag": "0007_tan_stellaris",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1727022322349,
+      "tag": "0008_sparkling_korg",
+      "breakpoints": true
     }
   ]
 }
