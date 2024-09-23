@@ -1,0 +1,1 @@
+ALTER TABLE "travel" RENAME COLUMN "location" TO "country";

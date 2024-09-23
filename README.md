@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TravelVault
+
+TravelVault is a web application that allows users to create and document their travels. For each trip, users can enter activities for every day, giving them the ability to save their travels and keep memories in one place.
+
+## Features
+
+- Create a new travel itinerary
+- Add activities for each day of the trip
+- Save and revisit your travel memories
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+To run TravelVault locally, you'll need:
+
+- [Node.js](https://nodejs.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [PNPM](https://pnpm.io/)
+
+### Clone the Repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/thibaudbrault/TravelVault.git
+cd travelvault
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Install dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Database setup
 
-## Learn More
+1. Create a new PostgreSQL database.
+2. Configure your environment variables in a .env file at the root of the project:
 
-To learn more about Next.js, take a look at the following resources:
+```makefile
+DATABASE_URL=your_postgresql_url
+NEXTAUTH_SECRET=your_nextauth_secret
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Run database migrations to set up the schema:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+pnpm push
+```
 
-## Deploy on Vercel
+### Running the Application
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To run the app in development mode:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+pnpm dev
+```
+
+Your app should now be running on http://localhost:3000.
+
+## Technologies
+
+TravelVault is built using the following technologies:
+
+- **React**
+- **NextJS**
+- **TypeScript**
+- **Drizzle ORM**
+- **AuthJS**
+
+Feel free to contribute by submitting issues or pull requests!
